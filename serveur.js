@@ -31,3 +31,7 @@ app.get('/logement/:id', (req, res) => {
       title: `Mini-Airbnb - ${logement.titre}` 
     });
 });
+
+app.listen(PORT, () => {
+    console.log(`Le serveur est démarré sur http://localhost:${PORT}`);
+});
