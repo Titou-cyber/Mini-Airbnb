@@ -1,32 +1,32 @@
 <div class="logement-detail">
-    <div class="logement-detail-image">
-      <img src="/images/<%= logement.image %>" alt="<%= logement.titre %>">
+  <div class="logement-detail-image">
+    <img src="/images/<%= logement.image %>" alt="<%= logement.titre %>">
+  </div>
+  
+  <div class="logement-detail-info">
+    <h2><%= logement.titre %></h2>
+    <p class="logement-detail-prix"><%= logement.prix %>€ / nuit</p>
+    
+    <div class="logement-detail-caracteristiques">
+      <span><%= logement.chambres %> chambre<%= logement.chambres > 1 ? 's' : '' %></span>
+      <span><%= logement.salleDeBains %> salle<%= logement.salleDeBains > 1 ? 's' : '' %> de bain</span>
+      <span>Capacité: <%= logement.capacite %> personne<%= logement.capacite > 1 ? 's' : '' %></span>
     </div>
     
-    <div class="logement-detail-info">
-      <h2><%= logement.titre %></h2>
-      <p class="logement-detail-prix"><%= logement.prix %>€ / nuit</p>
-      
-      <div class="logement-detail-caracteristiques">
-        <span><%= logement.chambres %> chambre<%= logement.chambres > 1 ? 's' : '' %></span>
-        <span><%= logement.salleDeBains %> salle<%= logement.salleDeBains > 1 ? 's' : '' %> de bain</span>
-        <span>Capacité: <%= logement.capacite %> personne<%= logement.capacite > 1 ? 's' : '' %></span>
-      </div>
-      
-      <div class="logement-detail-description">
-        <h3>Description</h3>
-        <p><%= logement.description %></p>
-      </div>
-      
-      <div class="logement-detail-equipements">
-        <h3>Équipements</h3>
-        <ul>
-          <% logement.equipements.forEach(equipement => { %>
-            <li><%= equipement %></li>
-          <% }); %>
-        </ul>
-      </div>
-      
-      <a href="/" class="btn-retour">Retour à la liste des logements</a>
+    <div class="logement-detail-description">
+      <h3>Description</h3>
+      <p><%= logement.description %></p>
     </div>
+    
+    <div class="logement-detail-equipements">
+      <h3>Équipements</h3>
+      <ul>
+        <% logement.equipements.forEach(equipement => { %>
+          <li><%= equipement %></li>
+        <% }); %>
+      </ul>
+    </div>
+    
+    <a href="/" class="btn-retour">Retour à la liste des logements</a>
   </div>
+</div>
