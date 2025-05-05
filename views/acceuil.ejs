@@ -1,0 +1,17 @@
+<h2>Trouvez votre prochain logement</h2>
+
+<div class="logements-grid">
+  <% logements.forEach(logement => { %>
+    <div class="logement-card">
+      <a href="/logement/<%= logement.id %>">
+        <div class="logement-image">
+          <img src="/images/<%= logement.image %>" alt="<%= logement.titre %>">
+        </div>
+        <div class="logement-info">
+          <h3><%= logement.titre %></h3>
+          <p class="logement-prix"><%= logement.prix %>€ / nuit</p>
+        </div>
+      </a>
+    </div>
+  <% }); %>
+</div>
