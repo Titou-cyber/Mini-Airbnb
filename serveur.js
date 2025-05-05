@@ -15,3 +15,19 @@ app.get('/', (req, res) => {
       title: 'Mini-Airbnb - Accueil' 
     });
 });
+
+app.get('/logement/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const logement = logements.find(log => log.id === id);
+    
+    if (!logement) {
+      return res.status(404).render('404', { 
+        title: 'Logement non trouvé' 
+      });
+    }
+    
+    res.render('detail', { 
+      logement: logement,
+      title: `Mini-Airbnb - ${logement.titre}` 
+    });
+});
