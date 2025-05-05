@@ -1,17 +1,120 @@
-<h2>Trouvez votre prochain logement</h2>
+<!-- Header avec barre de navigation -->
+<header>
+  <div class="container">
+    <nav>
+      <a href="/" class="logo">MaisonBnB</a>
+      <div class="nav-links">
+        <a href="/">Accueil</a>
+        <a href="/favoris">Favoris</a>
+        <a href="/reservations">Mes réservations</a>
+        <a href="/compte">Mon compte</a>
+      </div>
+    </nav>
+  </div>
+</header>
 
-<div class="logements-grid">
-  <% logements.forEach(logement => { %>
-    <div class="logement-card">
-      <a href="/logement/<%= logement.id %>">
-        <div class="logement-image">
-          <img src="/images/<%= logement.image %>" alt="<%= logement.titre %>">
-        </div>
-        <div class="logement-info">
-          <h3><%= logement.titre %></h3>
-          <p class="logement-prix"><%= logement.prix %>€ / nuit</p>
-        </div>
-      </a>
+<div class="container">
+  <!-- Barre de recherche -->
+  <div class="search-bar">
+    <input type="text" placeholder="Où souhaitez-vous séjourner?">
+    <button class="search-button">Rechercher</button>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters">
+    <button class="filter-button active">Tous</button>
+    <button class="filter-button">Bord de mer</button>
+    <button class="filter-button">Montagne</button>
+    <button class="filter-button">Campagne</button>
+    <button class="filter-button">Centre-ville</button>
+    <button class="filter-button">Design</button>
+    <button class="filter-button">Piscine</button>
+    <button class="filter-button">Vue exceptionnelle</button>
+    <button class="filter-button">Luxe</button>
+  </div>
+
+  <h2 class="section-title">Trouvez votre prochain logement</h2>
+
+  <div class="logements-grid">
+    <% logements.forEach(logement => { %>
+      <div class="logement-card">
+        <a href="/logement/<%= logement.id %>">
+          <% if (logement.promotion) { %>
+            <div class="badge">Promotion</div>
+          <% } %>
+          <div class="logement-image">
+            <img src="/images/<%= logement.image %>" alt="<%= logement.titre %>">
+          </div>
+          <div class="logement-info">
+            <p class="logement-location">
+              <%= logement.ville || 'Paris' %>, <%= logement.pays || 'France' %>
+            </p>
+            <h3><%= logement.titre %></h3>
+            <div class="rating">
+              <div class="stars">★★★★<% if (logement.rating >= 4.5) { %>★<% } else { %>☆<% } %></div>
+              <div class="count">(<%= logement.avis || Math.floor(Math.random() * 50) + 5 %>)</div>
+            </div>
+            <p class="logement-prix"><%= logement.prix %>€ <span class="period">/ nuit</span></p>
+          </div>
+        </a>
+      </div>
+    <% }); %>
+  </div>
+
+  <!-- Pagination (optionnelle) -->
+  <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+    <div class="pagination">
+      <% for(let i = 1; i <= totalPages; i++) { %>
+        <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+      <% } %>
     </div>
-  <% }); %>
+  <% } %>
 </div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>À propos</h4>
+        <ul>
+          <li><a href="#">Comment ça marche</a></li>
+          <li><a href="#">Qui sommes-nous</a></li>
+          <li><a href="#">Mentions légales</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Centre d'aide</a></li>
+          <li><a href="#">Nous contacter</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Hôtes</h4>
+        <ul>
+          <li><a href="#">Devenir hôte</a></li>
+          <li><a href="#">Ressources</a></li>
+          <li><a href="#">Communauté</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <%= new Date().getFullYear() %> MaisonBnB - Tous droits réservés</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Script pour activer les filtres -->
+<script>
+  document.querySelectorAll('.filter-button').forEach(button => {
+    button.addEventListener('click', function() {
+      document.querySelectorAll('.filter-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      this.classList.add('active');
+      // Ici vous pouvez ajouter du code pour filtrer les logements
+    });
+  });
+</script>
