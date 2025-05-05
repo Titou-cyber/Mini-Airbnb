@@ -1,128 +1,591 @@
-/* Reset de base */
+/* Reset de base et variables */
+:root {
+  --primary-color: #FF385C;       /* Rouge vif Airbnb */
+  --secondary-color: #00A699;     /* Turquoise */
+  --accent-color: #FC642D;        /* Orange vif */
+  --light-accent: #FFEDE6;        /* Orange très pâle */
+  --dark-color: #222222;          /* Presque noir */
+  --text-color: #484848;          /* Gris foncé */
+  --light-gray: #F7F7F7;          /* Gris très pâle */
+  --medium-gray: #DDDDDD;         /* Gris moyen */
+  --shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.16);
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f8f8f8;
-  }
-  
-  .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-  
-  /* Grille de logements */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--light-gray);
+  padding-top: 80px; /* Pour la navbar fixe */
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Header et Navigation */
+header {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 15px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 20px;
+  transition: var(--transition);
+}
+
+.nav-links a:hover {
+  background-color: var(--light-gray);
+  color: var(--primary-color);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  margin: 20px auto;
+  max-width: 700px;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  flex-grow: 1;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.search-bar input:focus {
+  outline: none;
+}
+
+.search-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.search-button:hover {
+  background-color: #e02b4b;
+  transform: scale(1.05);
+}
+
+/* Filtres */
+.filters {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 15px 0;
+  margin-bottom: 20px;
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+}
+
+.filters::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-button {
+  white-space: nowrap;
+  padding: 8px 16px;
+  background-color: white;
+  border: 1px solid var(--medium-gray);
+  border-radius: 30px;
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-button:hover, .filter-button.active {
+  background-color: var(--light-accent);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Grille de logements */
+.logements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.logement-card {
+  background: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.logement-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.logement-card a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.logement-image {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+
+.logement-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.logement-card:hover .logement-image img {
+  transform: scale(1.05);
+}
+
+.logement-info {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.logement-info h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: var(--dark-color);
+  font-weight: 600;
+}
+
+.logement-location {
+  color: var(--secondary-color);
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.logement-prix {
+  font-weight: bold;
+  color: var(--primary-color);
+  font-size: 18px;
+  margin-top: auto;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin: 5px 0 10px;
+}
+
+.rating .stars {
+  color: var(--accent-color);
+  margin-right: 5px;
+}
+
+.rating .count {
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+/* Badge pour promotions ou statuts */
+.badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+/* Page de détail */
+.logement-detail {
+  background: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+}
+
+.logement-detail-image {
+  height: 450px;
+  overflow: hidden;
+  position: relative;
+}
+
+.logement-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logement-detail-info {
+  padding: 30px;
+}
+
+.logement-detail-info h1 {
+  font-size: 28px;
+  color: var(--dark-color);
+  margin-bottom: 10px;
+}
+
+.logement-detail-location {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.logement-detail-location svg {
+  margin-right: 5px;
+}
+
+.logement-detail-prix {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+}
+
+.logement-detail-prix .period {
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: normal;
+  margin-left: 5px;
+}
+
+.logement-detail-caracteristiques {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 30px;
+  padding: 20px 0;
+  border-top: 1px solid var(--medium-gray);
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.caracteristique {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.caracteristique span {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.caracteristique small {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.section-title {
+  font-size: 22px;
+  color: var(--dark-color);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+.logement-detail-description {
+  margin-bottom: 30px;
+  line-height: 1.7;
+}
+
+.logement-detail-equipements {
+  margin-bottom: 30px;
+}
+
+.logement-detail-equipements ul {
+  list-style-type: none;
+  columns: 2;
+  gap: 20px;
+}
+
+.logement-detail-equipements li {
+  padding: 5px 0;
+  position: relative;
+  padding-left: 25px;
+}
+
+.logement-detail-equipements li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+/* Réservation widget */
+.reservation-widget {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 25px;
+  position: sticky;
+  top: 100px;
+}
+
+.date-picker {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.date-picker input {
+  padding: 12px;
+  border: 1px solid var(--medium-gray);
+  border-radius: 8px;
+  flex-grow: 1;
+}
+
+.guest-counter {
+  margin-bottom: 20px;
+}
+
+.guest-counter select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--medium-gray);
+  border-radius: 8px;
+  appearance: none;
+  background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") no-repeat right 12px center;
+  background-size: 15px;
+}
+
+.btn-reserver {
+  display: block;
+  width: 100%;
+  background: var(--primary-color);
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-reserver:hover {
+  background-color: #e02b4b;
+  transform: scale(1.02);
+}
+
+.btn-retour {
+  display: inline-block;
+  background: var(--secondary-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-top: 30px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btn-retour:hover {
+  background-color: #008f84;
+  transform: translateX(-5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .logements-grid {
-    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
   }
   
-  .logement-card {
-    background: white;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .logement-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .logement-card a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .logement-image {
-    height: 180px;
-    overflow: hidden;
-  }
-  
-  .logement-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .logement-info {
-    padding: 15px;
-  }
-  
-  .logement-info h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-  }
-  
-  .logement-prix {
-    font-weight: bold;
-    color: #ff5a5f;
-  }
-  
-  /* Page de détail */
-  .logement-detail {
-    background: white;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-  }
-  
-  .logement-detail-image {
-    height: 150px;
-    overflow: hidden;
-  }
-  
-  .logement-detail-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .logement-detail-info {
-    padding: 20px;
-  }
-  
-  .logement-detail-prix {
-    font-size: 20px;
-    font-weight: bold;
-    color: #ff5a5f;
-    margin: 10px 0;
-  }
-  
   .logement-detail-caracteristiques {
-    display: flex;
+    flex-wrap: wrap;
     gap: 15px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .logement-detail-description,
-  .logement-detail-equipements {
-    margin-bottom: 20px;
   }
   
   .logement-detail-equipements ul {
-    list-style-position: inside;
-    columns: 2;
+    columns: 1;
   }
   
-  .btn-retour {
-    display: inline-block;
-    background: #ff5a5f;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 20px;
+  .logement-detail-image {
+    height: 300px;
   }
+}
+
+@media (max-width: 576px) {
+  body {
+    padding-top: 60px;
+  }
+  
+  .logements-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .logement-image {
+    height: 200px;
+  }
+  
+  .logement-detail-info {
+    padding: 20px 15px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .search-bar input {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .search-button {
+    width: 100%;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.logement-card {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Style pour les formulaires */
+input, textarea, select, button {
+  font-family: inherit;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--medium-gray);
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 2px rgba(0, 166, 153, 0.2);
+}
+
+/* Tooltip et infobulles */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--dark-color);
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
