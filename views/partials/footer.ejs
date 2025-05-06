@@ -1,0 +1,62 @@
+</main>
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-column">
+        <h4>À propos</h4>
+        <ul>
+          <li><a href="#">Comment ça marche</a></li>
+          <li><a href="#">Qui sommes-nous</a></li>
+          <li><a href="#">Carrières</a></li>
+          <li><a href="#">Investisseurs</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Communauté</h4>
+        <ul>
+          <li><a href="#">Diversité et inclusion</a></li>
+          <li><a href="#">Accessibilité</a></li>
+          <li><a href="#">Partenaires</a></li>
+          <li><a href="#">Recommandations</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Hôtes</h4>
+        <ul>
+          <li><a href="#">Devenir hôte</a></li>
+          <li><a href="#">Accueil responsable</a></li>
+          <li><a href="#">Centre de ressources</a></li>
+          <li><a href="#">Forum communautaire</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Assistance</h4>
+        <ul>
+          <li><a href="#">Centre d'aide</a></li>
+          <li><a href="#">Services de sécurité</a></li>
+          <li><a href="#">Options d'annulation</a></li>
+          <li><a href="#">Signaler un problème</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <%= new Date().getFullYear() %> Mini-Airbnb - Projet éducatif | Tous droits réservés</p>
+    </div>
+  </div>
+</footer>
+<script>
+  // Script simple pour ajouter des effets visuels
+  document.addEventListener('DOMContentLoaded', function() {
+    // Ajouter une classe active au lien de menu actuel
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('nav ul li a');
+    
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.parentElement.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>

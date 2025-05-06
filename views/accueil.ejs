@@ -1,21 +1,36 @@
-<!-- Header avec navigation style Airbnb -->
-<header>
+<%- include('partials/header') %>
+
+<section class="hero">
   <div class="container">
-    <div class="header-inner">
-      <!-- Logo à gauche -->
-      <div class="logo">
-        <a href="/">
-          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836l.145.353c.667 1.591.91 2.472.96 3.396l.01.415.001.228c0 4.062-2.877 6.478-6.357 6.478-2.224 0-4.556-1.258-6.709-3.386l-.257-.26-.172-.179h-.011l-.176.185c-2.044 2.1-4.267 3.42-6.414 3.615l-.28.019-.267.006C5.377 31 2.5 28.584 2.5 24.522l.005-.469c.026-.928.23-1.768.83-3.244l.216-.524c.966-2.298 6.083-12.989 7.707-16.034C12.537 1.963 13.992 1 16 1zm0 2c-1.239 0-2.053.539-2.987 2.21l-.523 1.008c-1.926 3.776-6.06 12.43-7.031 14.692l-.345.836c-.427 1.071-.573 1.655-.605 2.24l-.009.33v.206c0 2.329 1.607 3.9 3.543 3.9 1.254 0 2.98-.79 4.896-2.902l.376-.39c.296-.333.734-.837.734-1.551 0-.715-.44-1.22-.735-1.552l-.376-.39c-1.916-2.112-3.642-2.902-4.896-2.902-1.936 0-3.543 1.571-3.543 3.901v.205l.009.33c.032.586.178 1.169.605 2.24l.345.836c.971 2.263 5.105 10.916 7.031 14.692l.523 1.008c.934 1.671 1.748 2.21 2.987 2.21 1.239 0 2.053-.539 2.987-2.21l.523-1.008c1.926-3.776 6.06-12.43 7.031-14.692l.344-.836c.428-1.071.574-1.654.606-2.24l.009-.33v-.205c0-2.33-1.607-3.901-3.543-3.901-1.254 0-2.98.79-4.896 2.902l-.376.39c-.296.333-.734.837-.734 1.552 0 .714.438 1.218.734 1.551l.376.39c1.916 2.112 3.642 2.902 4.896 2.902 1.936 0 3.543-1.571 3.543-3.9v-.206l-.009-.33c-.032-.585-.178-1.169-.606-2.24l-.344-.836c-.971-2.263-5.105-10.916-7.031-14.692l-.523-1.008c-.934-1.671-1.748-2.21-2.987-2.21z"></path>
-          </svg>
-          MaisonBnB
+    <h2>Découvrez des lieux uniques pour séjourner</h2>
+    <p>Trouvez des logements entiers et des chambres privées parfaits pour tous les voyages.</p>
+  </div>
+</section>
+
+<div class="container">
+  <h2 class="section-title">Nos hébergements recommandés</h2>
+  
+  <div class="logements-grid">
+    <% logements.forEach(logement => { %>
+      <div class="logement-card">
+        <a href="/logement/<%= logement.id %>">
+          <div class="logement-image">
+            <img src="/images/<%= logement.image %>" alt="<%= logement.titre %>">
+          </div>
+          <div class="logement-info">
+            <h3><%= logement.titre %></h3>
+            <p class="logement-short-desc"><%= logement.description.substring(0, 80) %>...</p>
+            <div class="logement-meta">
+              <span class="logement-capacity">
+                <i class="fas fa-user"></i> <%= logement.capacite %> personne<%= logement.capacite > 1 ? 's' : '' %>
+              </span>
+              <span class="logement-prix"><%= logement.prix %>€<span> / nuit</span></span>
+            </div>
+          </div>
         </a>
       </div>
-      
-      <!-- Barre de recherche centrale -->
-      <div class="search-container">
-        <div class="search-bar">
-          <input type="text" placeholder="Où souhaitez-vous aller ?">
-          <button class="search-button">
-            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-              <path d="M13 24c6.075 0 11-4.925 11-11S19.075 2
+    <% }); %>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,336 +1,94 @@
-<!-- Header avec barre de navigation -->
-<header>
-  <div class="container">
-    <nav>
-      <a href="/" class="logo">MaisonBnB</a>
-      <div class="nav-links">
-        <a href="/">Accueil</a>
-        <a href="/favoris">Favoris</a>
-        <a href="/reservations">Mes réservations</a>
-        <a href="/compte">Mon compte</a>
-      </div>
-    </nav>
-  </div>
-</header>
+<%- include('partials/header') %>
 
 <div class="container">
-  <!-- Fil d'Ariane -->
-  <div class="breadcrumb">
-    <a href="/">Accueil</a> > <span><%= logement.ville || 'Paris' %></span> > <span><%= logement.titre %></span>
-  </div>
-
   <div class="logement-detail">
     <div class="logement-detail-image">
       <img src="/images/<%= logement.image %>" alt="<%= logement.titre %>">
-      <% if (logement.promotion) { %>
-        <div class="badge">Promotion</div>
-      <% } %>
     </div>
     
     <div class="logement-detail-info">
-      <h1><%= logement.titre %></h1>
-      
-      <div class="logement-detail-location">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
-          <circle cx="12" cy="10" r="3"></circle>
-        </svg>
-        <%= logement.ville || 'Paris' %>, <%= logement.pays || 'France' %>
-      </div>
-      
-      <div class="rating">
-        <div class="stars">★★★★<% if ((logement.rating || 4.5) >= 4.5) { %>★<% } else { %>☆<% } %></div>
-        <div class="count">(<%= logement.avis || Math.floor(Math.random() * 50) + 5 %> avis)</div>
-      </div>
-      
-      <div class="logement-detail-prix">
-        <%= logement.prix %>€ <span class="period">/ nuit</span>
+      <div class="logement-detail-header">
+        <div class="logement-detail-title">
+          <h2><%= logement.titre %></h2>
+        </div>
+        <div class="logement-detail-prix">
+          <%= logement.prix %>€<span> / nuit</span>
+        </div>
       </div>
       
       <div class="logement-detail-caracteristiques">
-        <div class="caracteristique">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 22v-7.5a1.5 1.5 0 0 1 1.5-1.5h15a1.5 1.5 0 0 1 1.5 1.5V22"></path>
-            <path d="M3 9v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9"></path>
-            <path d="M3 5v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5"></path>
-            <path d="M3 3h18"></path>
-          </svg>
-          <span><%= logement.chambres %></span>
-          <small>Chambre<%= logement.chambres > 1 ? 's' : '' %></small>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="fas fa-bed"></i>
+          </div>
+          <div class="feature-text">
+            <%= logement.chambres %> chambre<%= logement.chambres > 1 ? 's' : '' %>
+          </div>
         </div>
         
-        <div class="caracteristique">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 6 4 7l-3 3s0 9 3 9h16c1 0 3-3 3-9l-3-3-5-1"></path>
-            <path d="M9 6a3 3 0 0 1 6 0"></path>
-            <path d="M7 11h10a2 2 0 0 1 2 2v2H5v-2a2 2 0 0 1 2-2Z"></path>
-          </svg>
-          <span><%= logement.salleDeBains %></span>
-          <small>Salle<%= logement.salleDeBains > 1 ? 's' : '' %> de bain</small>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="fas fa-bath"></i>
+          </div>
+          <div class="feature-text">
+            <%= logement.salleDeBains %> salle<%= logement.salleDeBains > 1 ? 's' : '' %> de bain
+          </div>
         </div>
         
-        <div class="caracteristique">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-          <span><%= logement.capacite %></span>
-          <small>Personne<%= logement.capacite > 1 ? 's' : '' %></small>
-        </div>
-        
-        <div class="caracteristique">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-            <line x1="3" x2="21" y1="9" y2="9"></line>
-            <line x1="9" x2="9" y1="21" y2="9"></line>
-          </svg>
-          <span><%= logement.superficie || 50 %> m²</span>
-          <small>Superficie</small>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="feature-text">
+            <%= logement.capacite %> personne<%= logement.capacite > 1 ? 's' : '' %>
+          </div>
         </div>
       </div>
       
-      <div class="logement-detail-description">
-        <h3 class="section-title">Description</h3>
+      <div class="logement-detail-section logement-detail-description">
+        <h3><i class="fas fa-info-circle"></i> Description</h3>
         <p><%= logement.description %></p>
       </div>
       
-      <div class="logement-detail-equipements">
-        <h3 class="section-title">Équipements</h3>
+      <div class="logement-detail-section logement-detail-equipements">
+        <h3><i class="fas fa-concierge-bell"></i> Équipements</h3>
         <ul>
           <% logement.equipements.forEach(equipement => { %>
-            <li><%= equipement %></li>
+            <li>
+              <% if (equipement === 'WiFi') { %>
+                <i class="fas fa-wifi equipement-icon"></i>
+              <% } else if (equipement === 'Cuisine équipée' || equipement === 'Kitchenette') { %>
+                <i class="fas fa-utensils equipement-icon"></i>
+              <% } else if (equipement === 'Machine à laver') { %>
+                <i class="fas fa-tshirt equipement-icon"></i>
+              <% } else if (equipement === 'TV') { %>
+                <i class="fas fa-tv equipement-icon"></i>
+              <% } else if (equipement === 'Piscine') { %>
+                <i class="fas fa-swimming-pool equipement-icon"></i>
+              <% } else if (equipement === 'Parking') { %>
+                <i class="fas fa-parking equipement-icon"></i>
+              <% } else if (equipement === 'Barbecue') { %>
+                <i class="fas fa-fire equipement-icon"></i>
+              <% } else if (equipement === 'Climatisation') { %>
+                <i class="fas fa-snowflake equipement-icon"></i>
+              <% } else if (equipement === 'Cheminée') { %>
+                <i class="fas fa-fire-alt equipement-icon"></i>
+              <% } else if (equipement === 'Terrasse') { %>
+                <i class="fas fa-umbrella-beach equipement-icon"></i>
+              <% } else { %>
+                <i class="fas fa-check-circle equipement-icon"></i>
+              <% } %>
+              <%= equipement %>
+            </li>
           <% }); %>
         </ul>
       </div>
       
-      <% if (logement.localisation) { %>
-      <div class="logement-detail-localisation">
-        <h3 class="section-title">Localisation</h3>
-        <div class="map-container">
-          <!-- Ici vous pouvez intégrer une carte si vous avez les coordonnées -->
-          <div class="map-placeholder">
-            <p>Carte de <%= logement.ville || 'Paris' %></p>
-          </div>
-        </div>
-      </div>
-      <% } %>
-      
       <a href="/" class="btn-retour">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        Retour à la liste des logements
+        <i class="fas fa-arrow-left"></i> Retour à la liste des logements
       </a>
-    </div>
-  </div>
-  
-  <!-- Widget de réservation -->
-  <div class="reservation-container" style="display: flex; margin-top: 30px; gap: 30px;">
-    <div style="flex: 2;">
-      <!-- Avis -->
-      <div class="reviews-section">
-        <h3 class="section-title">Avis des voyageurs</h3>
-        
-        <% const reviews = [
-          { nom: 'Sophie L.', date: 'Avril 2025', commentaire: 'Superbe endroit, très propre et bien situé. Je recommande !', note: 5 },
-          { nom: 'Marc D.', date: 'Mars 2025', commentaire: 'Très bon rapport qualité-prix, logement confortable.', note: 4 }
-        ] %>
-        
-        <% reviews.forEach(review => { %>
-          <div class="review-card">
-            <div class="review-header">
-              <div class="reviewer-info">
-                <div class="reviewer-avatar"></div>
-                <div>
-                  <strong><%= review.nom %></strong>
-                  <div class="review-date"><%= review.date %></div>
-                </div>
-              </div>
-              <div class="review-rating">
-                <% for(let i = 1; i <= 5; i++) { %>
-                  <% if (i <= review.note) { %>★<% } else { %>☆<% } %>
-                <% } %>
-              </div>
-            </div>
-            <div class="review-content">
-              <%= review.commentaire %>
-            </div>
-          </div>
-        <% }) %>
-      </div>
-    </div>
-    
-    <div style="flex: 1;">
-      <div class="reservation-widget">
-        <h3 style="margin-bottom: 15px;">Réserver</h3>
-        
-        <div class="logement-detail-prix" style="margin-bottom: 20px;">
-          <%= logement.prix %>€ <span class="period">/ nuit</span>
-        </div>
-        
-        <form>
-          <div class="date-picker">
-            <input type="date" placeholder="Arrivée" required>
-            <input type="date" placeholder="Départ" required>
-          </div>
-          
-          <div class="guest-counter">
-            <select>
-              <option value="1">1 voyageur</option>
-              <option value="2">2 voyageurs</option>
-              <option value="3">3 voyageurs</option>
-              <option value="4">4 voyageurs</option>
-              <option value="5">5 voyageurs</option>
-            </select>
-          </div>
-          
-          <div class="price-details">
-            <div class="price-row">
-              <span><%= logement.prix %>€ x 5 nuits</span>
-              <span><%= logement.prix * 5 %>€</span>
-            </div>
-            <div class="price-row">
-              <span>Frais de ménage</span>
-              <span>35€</span>
-            </div>
-            <div class="price-row">
-              <span>Frais de service</span>
-              <span><%= Math.round(logement.prix * 5 * 0.12) %>€</span>
-            </div>
-            <div class="price-row total">
-              <span><strong>Total</strong></span>
-              <span><strong><%= (logement.prix * 5) + 35 + Math.round(logement.prix * 5 * 0.12) %>€</strong></span>
-            </div>
-          </div>
-          
-          <button type="submit" class="btn-reserver">Réserver maintenant</button>
-        </form>
-      </div>
     </div>
   </div>
 </div>
 
-<!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>À propos</h4>
-        <ul>
-          <li><a href="#">Comment ça marche</a></li>
-          <li><a href="#">Qui sommes-nous</a></li>
-          <li><a href="#">Mentions légales</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Centre d'aide</a></li>
-          <li><a href="#">Nous contacter</a></li>
-          <li><a href="#">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Hôtes</h4>
-        <ul>
-          <li><a href="#">Devenir hôte</a></li>
-          <li><a href="#">Ressources</a></li>
-          <li><a href="#">Communauté</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; <%= new Date().getFullYear() %> MaisonBnB - Tous droits réservés</p>
-    </div>
-  </div>
-</footer>
-
-<!-- Style supplémentaire pour cette page -->
-<style>
-  .breadcrumb {
-    margin: 20px 0;
-    color: var(--text-color);
-    font-size: 14px;
-  }
-  
-  .breadcrumb a {
-    color: var(--primary-color);
-    text-decoration: none;
-  }
-  
-  .breadcrumb span {
-    margin: 0 5px;
-  }
-  
-  .review-card {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-  
-  .review-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .reviewer-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .reviewer-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--medium-gray);
-    margin-right: 10px;
-  }
-  
-  .review-date {
-    font-size: 14px;
-    color: var(--text-color);
-  }
-  
-  .review-rating {
-    color: var(--accent-color);
-  }
-  
-  .map-placeholder {
-    height: 200px;
-    background-color: var(--light-gray);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-  }
-  
-  .price-details {
-    background-color: var(--light-gray);
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
-  }
-  
-  .price-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .price-row.total {
-    border-top: 1px solid var(--medium-gray);
-    padding-top: 10px;
-    margin-top: 10px;
-  }
-  
-  @media (max-width: 768px) {
-    .reservation-container {
-      flex-direction: column;
-    }
-  }
-</style>
+<%- include('partials/footer') %>
