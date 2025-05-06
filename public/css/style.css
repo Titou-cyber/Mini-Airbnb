@@ -1,17 +1,19 @@
-/* Reset de base et variables */
+/* Variables et Reset */
 :root {
-  --primary-color: #FF385C;       /* Rouge vif Airbnb */
-  --secondary-color: #00A699;     /* Turquoise */
-  --accent-color: #FC642D;        /* Orange vif */
-  --light-accent: #FFEDE6;        /* Orange très pâle */
-  --dark-color: #222222;          /* Presque noir */
-  --text-color: #484848;          /* Gris foncé */
-  --light-gray: #F7F7F7;          /* Gris très pâle */
-  --medium-gray: #DDDDDD;         /* Gris moyen */
+  --primary-color: #FF385C;       /* Rouge Airbnb */
+  --white: #FFFFFF;               /* Blanc */
+  --black: #222222;               /* Noir */
+  --dark-gray: #484848;           /* Gris foncé pour texte */
+  --medium-gray: #717171;         /* Gris moyen */
+  --light-gray: #F7F7F7;          /* Gris très pâle pour fond */
+  --border-gray: #DDDDDD;         /* Gris pour bordures */
   --shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.16);
+  --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15);
   --border-radius: 12px;
-  --transition: all 0.3s ease;
+  --border-radius-sm: 8px;
+  --border-radius-lg: 32px;
+  --transition: all 0.2s ease;
+  --font-primary: 'Circular', -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 
 * {
@@ -21,571 +23,984 @@
 }
 
 body {
-  font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  line-height: 1.6;
-  color: var(--text-color);
-  background-color: var(--light-gray);
-  padding-top: 80px; /* Pour la navbar fixe */
+  font-family: var(--font-primary);
+  line-height: 1.43;
+  color: var(--black);
+  background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Layout */
 .container {
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1760px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 80px;
+}
+
+@media (max-width: 1440px) {
+  .container {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
 }
 
 /* Header et Navigation */
 header {
-  background-color: white;
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  padding: 15px 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border-gray);
+  height: 80px;
+  display: flex;
+  align-items: center;
   z-index: 100;
 }
 
-nav {
+.header-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .logo {
+  flex: 1;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
   color: var(--primary-color);
   font-weight: bold;
   font-size: 24px;
-  text-decoration: none;
 }
 
-.nav-links {
+.logo svg {
+  height: 32px;
+  fill: var(--primary-color);
+}
+
+/* Barre de recherche centrale */
+.search-container {
+  position: relative;
+  flex: 2;
   display: flex;
-  gap: 20px;
-}
-
-.nav-links a {
-  color: var(--text-color);
-  text-decoration: none;
-  font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 20px;
-  transition: var(--transition);
-}
-
-.nav-links a:hover {
-  background-color: var(--light-gray);
-  color: var(--primary-color);
+  justify-content: center;
 }
 
 .search-bar {
   display: flex;
   align-items: center;
-  background-color: white;
-  border-radius: 30px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
-  margin: 20px auto;
-  max-width: 700px;
+  height: 48px;
+  min-width: 350px;
+  border: 1px solid var(--border-gray);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  padding: 0 8px 0 24px;
+  transition: box-shadow 0.2s ease;
+}
+
+.search-bar:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 }
 
 .search-bar input {
+  flex: 1;
   border: none;
-  background: transparent;
-  flex-grow: 1;
-  padding: 5px;
-  font-size: 16px;
-}
-
-.search-bar input:focus {
   outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  padding: 0 16px 0 0;
 }
 
 .search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 16px;
-  cursor: pointer;
+  color: var(--white);
+  min-width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.search-button svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--white);
+}
+
+/* Menu utilisateur à droite */
+.user-menu {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.messaging-link, .profile-menu-button {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 22px;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--black);
   transition: var(--transition);
 }
 
-.search-button:hover {
-  background-color: #e02b4b;
-  transform: scale(1.05);
+.messaging-link:hover, .profile-menu-button:hover {
+  background-color: var(--light-gray);
+}
+
+.profile-menu-button {
+  border: 1px solid var(--border-gray);
+  padding: 5px 5px 5px 12px;
+  gap: 12px;
+}
+
+.profile-menu-button .avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--medium-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+}
+
+/* Menu déroulant profil */
+.profile-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 80px;
+  width: 240px;
+  background: var(--white);
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  padding: 8px 0;
+  display: none;
+  z-index: 200;
+}
+
+.profile-dropdown.active {
+  display: block;
+}
+
+.profile-dropdown a, .profile-dropdown button {
+  display: block;
+  padding: 12px 16px;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 14px;
+  color: var(--black);
+}
+
+.profile-dropdown a:hover, .profile-dropdown button:hover {
+  background-color: var(--light-gray);
+}
+
+.profile-dropdown hr {
+  border: none;
+  height: 1px;
+  background-color: var(--border-gray);
+  margin: 8px 0;
 }
 
 /* Filtres */
-.filters {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  padding: 15px 0;
-  margin-bottom: 20px;
-  -ms-overflow-style: none;
-  scrollbar-width: none; 
+.filters-section {
+  padding: 20px 0;
+  position: relative;
 }
 
-.filters::-webkit-scrollbar {
-  display: none;
+.filters-container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .filter-button {
-  white-space: nowrap;
-  padding: 8px 16px;
-  background-color: white;
-  border: 1px solid var(--medium-gray);
-  border-radius: 30px;
-  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid var(--border-gray);
+  border-radius: var(--border-radius-lg);
   font-size: 14px;
   font-weight: 500;
+  color: var(--black);
+  background-color: var(--white);
+}
+
+.filter-button:hover {
+  border-color: var(--black);
+}
+
+.filter-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.filters-tabs {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 16px;
+}
+
+.filters-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  opacity: 0.65;
+  transition: var(--transition);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+
+.filter-tab:hover, .filter-tab.active {
+  opacity: 1;
+  border-bottom-color: var(--black);
+}
+
+.filter-tab img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.filter-tab span {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Modal Filtres */
+.filters-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+  padding-top: 15vh;
+}
+
+.filters-modal.active {
+  display: flex;
+}
+
+.filters-modal-content {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  max-width: 780px;
+  width: 100%;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.filters-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  border-bottom: 1px solid var(--border-gray);
+  position: relative;
+}
+
+.filters-modal-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.close-filters-modal {
+  position: absolute;
+  left: 24px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.filters-modal-body {
+  padding: 24px;
+}
+
+.filter-group {
+  margin-bottom: 32px;
+}
+
+.filter-group h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.filter-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.filter-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--border-gray);
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
   transition: var(--transition);
 }
 
-.filter-button:hover, .filter-button.active {
-  background-color: var(--light-accent);
-  border-color: var(--primary-color);
-  color: var(--primary-color);
+.filter-option:hover, .filter-option.selected {
+  border-color: var(--black);
+}
+
+.filter-option img {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 8px;
+}
+
+.price-range {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.range-slider {
+  width: 100%;
+  height: 2px;
+  background: var(--border-gray);
+  position: relative;
+  margin: 24px 0;
+}
+
+.range-slider .track {
+  position: absolute;
+  height: 100%;
+  background: var(--black);
+  left: 25%;
+  right: 25%;
+}
+
+.range-slider .thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--black);
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.range-slider .thumb.left {
+  left: 25%;
+}
+
+.range-slider .thumb.right {
+  left: 75%;
+}
+
+.price-inputs {
+  display: flex;
+  gap: 16px;
+}
+
+.price-input {
+  flex: 1;
+}
+
+.price-input label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.price-input input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-gray);
+  border-radius: var(--border-radius-sm);
+}
+
+.filters-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-gray);
+}
+
+.clear-filters {
+  font-size: 16px;
+  text-decoration: underline;
+  background: none;
+  border: none;
+}
+
+.apply-filters {
+  background-color: var(--black);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-lg);
 }
 
 /* Grille de logements */
 .logements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
-  margin-top: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 24px;
+  margin-top: 16px;
+  margin-bottom: 48px;
 }
 
 .logement-card {
-  background: white;
+  position: relative;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: var(--transition);
+}
+
+.favorite-button:hover {
+  transform: scale(1.1);
+}
+
+.favorite-button.active {
+  color: var(--primary-color);
+}
+
+.logement-images {
+  position: relative;
+  height: 270px;
   border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.logement-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
-}
-
-.logement-card a {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 }
 
 .logement-image {
-  height: 220px;
-  position: relative;
-  overflow: hidden;
-}
-
-.logement-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
 }
 
-.logement-card:hover .logement-image img {
-  transform: scale(1.05);
+.image-nav {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.image-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.image-dot.active {
+  background-color: var(--white);
 }
 
 .logement-info {
-  padding: 20px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.logement-info h3 {
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: var(--dark-color);
-  font-weight: 600;
+  padding: 12px 0;
 }
 
 .logement-location {
-  color: var(--secondary-color);
+  font-size: 16px;
   font-weight: 500;
-  margin-bottom: 5px;
-  font-size: 15px;
+  color: var(--black);
+  margin-bottom: 4px;
+}
+
+.logement-distance {
+  font-size: 14px;
+  color: var(--medium-gray);
+  margin-bottom: 4px;
+}
+
+.logement-dates {
+  font-size: 14px;
+  color: var(--medium-gray);
+  margin-bottom: 8px;
 }
 
 .logement-prix {
-  font-weight: bold;
-  color: var(--primary-color);
-  font-size: 18px;
-  margin-top: auto;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--black);
 }
 
-.rating {
+.logement-rating {
   display: flex;
   align-items: center;
-  margin: 5px 0 10px;
-}
-
-.rating .stars {
-  color: var(--accent-color);
-  margin-right: 5px;
-}
-
-.rating .count {
-  color: var(--text-color);
+  gap: 4px;
   font-size: 14px;
+  color: var(--black);
 }
 
-/* Badge pour promotions ou statuts */
-.badge {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  z-index: 2;
+.logement-rating svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--black);
 }
 
 /* Page de détail */
 .logement-detail {
-  background: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  margin-top: 24px;
+}
+
+.logement-detail-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.logement-detail-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.logement-detail-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logement-detail-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.logement-detail-rating svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--black);
+}
+
+.logement-detail-location {
+  font-size: 14px;
+  color: var(--black);
+  text-decoration: underline;
+}
+
+.logement-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.share-button, .save-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+  text-decoration: underline;
+}
+
+.share-button svg, .save-button svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--black);
+}
+
+.logement-detail-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  height: 440px;
   border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: var(--shadow);
-  margin-bottom: 30px;
 }
 
-.logement-detail-image {
-  height: 450px;
-  overflow: hidden;
+.gallery-main {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+  height: 100%;
+}
+
+.gallery-image {
   position: relative;
+  height: 100%;
+  overflow: hidden;
 }
 
-.logement-detail-image img {
+.gallery-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.logement-detail-info {
-  padding: 30px;
-}
-
-.logement-detail-info h1 {
-  font-size: 28px;
-  color: var(--dark-color);
-  margin-bottom: 10px;
-}
-
-.logement-detail-location {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  color: var(--secondary-color);
+.show-all-photos {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  border-radius: var(--border-radius-lg);
+  padding: 8px 16px;
+  font-size: 14px;
   font-weight: 500;
 }
 
-.logement-detail-location svg {
-  margin-right: 5px;
+.logement-detail-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 80px;
+  padding-bottom: 48px;
 }
 
-.logement-detail-prix {
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--primary-color);
-  margin: 15px 0;
-  display: flex;
-  align-items: center;
-}
-
-.logement-detail-prix .period {
-  font-size: 16px;
-  color: var(--text-color);
-  font-weight: normal;
-  margin-left: 5px;
-}
-
-.logement-detail-caracteristiques {
-  display: flex;
-  gap: 25px;
-  margin-bottom: 30px;
-  padding: 20px 0;
-  border-top: 1px solid var(--medium-gray);
-  border-bottom: 1px solid var(--medium-gray);
-}
-
-.caracteristique {
+.logement-detail-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 24px;
 }
 
-.caracteristique span {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--dark-color);
+.host-info {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-gray);
 }
 
-.caracteristique small {
-  font-size: 14px;
-  color: var(--text-color);
-}
-
-.section-title {
+.host-name {
   font-size: 22px;
-  color: var(--dark-color);
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  position: relative;
+  font-weight: 600;
 }
 
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 50px;
-  height: 3px;
-  background-color: var(--primary-color);
+.host-meta {
+  font-size: 16px;
+  color: var(--medium-gray);
 }
 
-.logement-detail-description {
-  margin-bottom: 30px;
-  line-height: 1.7;
+.host-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.logement-detail-equipements {
-  margin-bottom: 30px;
+.amenities-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border-gray);
 }
 
-.logement-detail-equipements ul {
-  list-style-type: none;
-  columns: 2;
-  gap: 20px;
+.amenity-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
 }
 
-.logement-detail-equipements li {
-  padding: 5px 0;
-  position: relative;
-  padding-left: 25px;
+.amenity-item svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--black);
 }
 
-.logement-detail-equipements li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--secondary-color);
-  font-weight: bold;
+.description-section {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border-gray);
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-/* Réservation widget */
-.reservation-widget {
-  background-color: white;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  padding: 25px;
+.description-section p {
+  margin-bottom: 16px;
+}
+
+/* Booking Widget */
+.booking-widget {
   position: sticky;
   top: 100px;
+  border: 1px solid var(--border-gray);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
 }
 
-.date-picker {
+.booking-header {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
 }
 
-.date-picker input {
-  padding: 12px;
-  border: 1px solid var(--medium-gray);
-  border-radius: 8px;
-  flex-grow: 1;
-}
-
-.guest-counter {
-  margin-bottom: 20px;
-}
-
-.guest-counter select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid var(--medium-gray);
-  border-radius: 8px;
-  appearance: none;
-  background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") no-repeat right 12px center;
-  background-size: 15px;
-}
-
-.btn-reserver {
-  display: block;
-  width: 100%;
-  background: var(--primary-color);
-  color: white;
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
+.booking-price {
+  font-size: 22px;
   font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--transition);
-  text-decoration: none;
 }
 
-.btn-reserver:hover {
-  background-color: #e02b4b;
-  transform: scale(1.02);
+.booking-price .night {
+  font-weight: 400;
+  font-size: 16px;
 }
 
-.btn-retour {
-  display: inline-block;
-  background: var(--secondary-color);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  margin-top: 30px;
+.booking-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.dates-picker {
+  border: 1px solid var(--border-gray);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.dates-row {
+  display: flex;
+}
+
+.date-input {
+  flex: 1;
+  padding: 12px;
+}
+
+.date-input:first-child {
+  border-right: 1px solid var(--border-gray);
+}
+
+.date-input .label {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.date-input input {
+  border: none;
+  width: 100%;
+  font-size: 14px;
+  padding: 4px 0;
+}
+
+.guests-dropdown {
+  border: 1px solid var(--border-gray);
+  border-radius: var(--border-radius-sm);
+  padding: 12px;
+  margin-bottom: 24px;
+}
+
+.guests-dropdown .label {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.guests-dropdown select {
+  border: none;
+  width: 100%;
+  font-size: 14px;
+  padding: 4px 0;
+  appearance: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M8 10.5l-4-4h8l-4 4z'/%3E%3C/svg%3E") no-repeat right center;
+}
+
+.reserve-button {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-size: 16px;
   font-weight: 500;
-  transition: var(--transition);
+  padding: 14px;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 16px;
 }
 
-.btn-retour:hover {
-  background-color: #008f84;
-  transform: translateX(-5px);
+.booking-note {
+  text-align: center;
+  font-size: 14px;
+  color: var(--medium-gray);
+}
+
+.price-breakdown {
+  margin-top: 24px;
+}
+
+.price-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.price-line.total {
+  border-top: 1px solid var(--border-gray);
+  padding-top: 16px;
+  margin-top: 16px;
+  font-weight: 600;
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .logements-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+@media (max-width: 1128px) {
+  .logement-detail-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    height: 320px;
   }
   
-  .logement-detail-caracteristiques {
-    flex-wrap: wrap;
-    gap: 15px;
+  .gallery-main {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
   }
   
-  .logement-detail-equipements ul {
-    columns: 1;
+  .logement-detail-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
   
-  .logement-detail-image {
-    height: 300px;
+  .booking-widget {
+    position: static;
+    max-width: 400px;
+    margin: 0 auto;
   }
 }
 
-@media (max-width: 576px) {
-  body {
-    padding-top: 60px;
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .logo, .search-container, .user-menu {
+    width: 100%;
+    justify-content: center;
+    margin: 12px 0;
+  }
+  
+  .filters-container {
+    overflow-x: auto;
+    padding-bottom: 8px;
   }
   
   .logements-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  
+  .logement-detail-gallery {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    height: 250px;
+  }
+  
+  .gallery-main {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  .gallery-image:not(.gallery-main) {
+    display: none;
+  }
+  
+  .amenities-list {
     grid-template-columns: 1fr;
   }
-  
-  .logement-image {
-    height: 200px;
-  }
-  
-  .logement-detail-info {
-    padding: 20px 15px;
-  }
+}
 
-  .search-bar {
-    flex-direction: column;
-    padding: 10px;
-  }
-  
-  .search-bar input {
-    margin-bottom: 10px;
-    width: 100%;
-  }
-  
-  .search-button {
-    width: 100%;
-  }
+/* Footer */
+footer {
+  background-color: var(--white);
+  border-top: 1px solid var(--border-gray);
+  padding: 24px 0;
+  font-size: 14px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-section h4 {
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.footer-section ul li {
+  margin-bottom: 12px;
+}
+
+.footer-bottom {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--medium-gray);
 }
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.logement-card {
-  animation: fadeIn 0.5s ease forwards;
-}
-
-/* Style pour les formulaires */
-input, textarea, select, button {
-  font-family: inherit;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: var(--dark-color);
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid var(--medium-gray);
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 0 2px rgba(0, 166, 153, 0.2);
-}
-
-/* Tooltip et infobulles */
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip .tooltip-text {
-  visibility: hidden;
-  width: 200px;
-  background-color: var(--dark-color);
-  color: white;
-  text-align: center;
-  border-radius: 6px;
-  padding: 10px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
+.fadeIn {
+  animation: fadeIn 0.3s ease forwards;
 }

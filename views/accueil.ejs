@@ -1,120 +1,21 @@
-<!-- Header avec barre de navigation -->
+<!-- Header avec navigation style Airbnb -->
 <header>
   <div class="container">
-    <nav>
-      <a href="/" class="logo">MaisonBnB</a>
-      <div class="nav-links">
-        <a href="/">Accueil</a>
-        <a href="/favoris">Favoris</a>
-        <a href="/reservations">Mes réservations</a>
-        <a href="/compte">Mon compte</a>
-      </div>
-    </nav>
-  </div>
-</header>
-
-<div class="container">
-  <!-- Barre de recherche -->
-  <div class="search-bar">
-    <input type="text" placeholder="Où souhaitez-vous séjourner?">
-    <button class="search-button">Rechercher</button>
-  </div>
-
-  <!-- Filtres -->
-  <div class="filters">
-    <button class="filter-button active">Tous</button>
-    <button class="filter-button">Bord de mer</button>
-    <button class="filter-button">Montagne</button>
-    <button class="filter-button">Campagne</button>
-    <button class="filter-button">Centre-ville</button>
-    <button class="filter-button">Design</button>
-    <button class="filter-button">Piscine</button>
-    <button class="filter-button">Vue exceptionnelle</button>
-    <button class="filter-button">Luxe</button>
-  </div>
-
-  <h2 class="section-title">Trouvez votre prochain logement</h2>
-
-  <div class="logements-grid">
-    <% logements.forEach(logement => { %>
-      <div class="logement-card">
-        <a href="/logement/<%= logement.id %>">
-          <% if (logement.promotion) { %>
-            <div class="badge">Promotion</div>
-          <% } %>
-          <div class="logement-image">
-            <img src="/images/<%= logement.image %>" alt="<%= logement.titre %>">
-          </div>
-          <div class="logement-info">
-            <p class="logement-location">
-              <%= logement.ville || 'Paris' %>, <%= logement.pays || 'France' %>
-            </p>
-            <h3><%= logement.titre %></h3>
-            <div class="rating">
-              <div class="stars">★★★★<% if (logement.rating >= 4.5) { %>★<% } else { %>☆<% } %></div>
-              <div class="count">(<%= logement.avis || Math.floor(Math.random() * 50) + 5 %>)</div>
-            </div>
-            <p class="logement-prix"><%= logement.prix %>€ <span class="period">/ nuit</span></p>
-          </div>
+    <div class="header-inner">
+      <!-- Logo à gauche -->
+      <div class="logo">
+        <a href="/">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836l.145.353c.667 1.591.91 2.472.96 3.396l.01.415.001.228c0 4.062-2.877 6.478-6.357 6.478-2.224 0-4.556-1.258-6.709-3.386l-.257-.26-.172-.179h-.011l-.176.185c-2.044 2.1-4.267 3.42-6.414 3.615l-.28.019-.267.006C5.377 31 2.5 28.584 2.5 24.522l.005-.469c.026-.928.23-1.768.83-3.244l.216-.524c.966-2.298 6.083-12.989 7.707-16.034C12.537 1.963 13.992 1 16 1zm0 2c-1.239 0-2.053.539-2.987 2.21l-.523 1.008c-1.926 3.776-6.06 12.43-7.031 14.692l-.345.836c-.427 1.071-.573 1.655-.605 2.24l-.009.33v.206c0 2.329 1.607 3.9 3.543 3.9 1.254 0 2.98-.79 4.896-2.902l.376-.39c.296-.333.734-.837.734-1.551 0-.715-.44-1.22-.735-1.552l-.376-.39c-1.916-2.112-3.642-2.902-4.896-2.902-1.936 0-3.543 1.571-3.543 3.901v.205l.009.33c.032.586.178 1.169.605 2.24l.345.836c.971 2.263 5.105 10.916 7.031 14.692l.523 1.008c.934 1.671 1.748 2.21 2.987 2.21 1.239 0 2.053-.539 2.987-2.21l.523-1.008c1.926-3.776 6.06-12.43 7.031-14.692l.344-.836c.428-1.071.574-1.654.606-2.24l.009-.33v-.205c0-2.33-1.607-3.901-3.543-3.901-1.254 0-2.98.79-4.896 2.902l-.376.39c-.296.333-.734.837-.734 1.552 0 .714.438 1.218.734 1.551l.376.39c1.916 2.112 3.642 2.902 4.896 2.902 1.936 0 3.543-1.571 3.543-3.9v-.206l-.009-.33c-.032-.585-.178-1.169-.606-2.24l-.344-.836c-.971-2.263-5.105-10.916-7.031-14.692l-.523-1.008c-.934-1.671-1.748-2.21-2.987-2.21z"></path>
+          </svg>
+          MaisonBnB
         </a>
       </div>
-    <% }); %>
-  </div>
-
-  <!-- Pagination (optionnelle) -->
-  <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
-    <div class="pagination">
-      <% for(let i = 1; i <= totalPages; i++) { %>
-        <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
-      <% } %>
-    </div>
-  <% } %>
-</div>
-
-<!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>À propos</h4>
-        <ul>
-          <li><a href="#">Comment ça marche</a></li>
-          <li><a href="#">Qui sommes-nous</a></li>
-          <li><a href="#">Mentions légales</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Centre d'aide</a></li>
-          <li><a href="#">Nous contacter</a></li>
-          <li><a href="#">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Hôtes</h4>
-        <ul>
-          <li><a href="#">Devenir hôte</a></li>
-          <li><a href="#">Ressources</a></li>
-          <li><a href="#">Communauté</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; <%= new Date().getFullYear() %> MaisonBnB - Tous droits réservés</p>
-    </div>
-  </div>
-</footer>
-
-<!-- Script pour activer les filtres -->
-<script>
-  document.querySelectorAll('.filter-button').forEach(button => {
-    button.addEventListener('click', function() {
-      document.querySelectorAll('.filter-button').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      this.classList.add('active');
-      // Ici vous pouvez ajouter du code pour filtrer les logements
-    });
-  });
-</script>
+      
+      <!-- Barre de recherche centrale -->
+      <div class="search-container">
+        <div class="search-bar">
+          <input type="text" placeholder="Où souhaitez-vous aller ?">
+          <button class="search-button">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 24c6.075 0 11-4.925 11-11S19.075 2
