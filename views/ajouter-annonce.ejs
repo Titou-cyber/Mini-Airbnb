@@ -1,0 +1,139 @@
+<%- include('partials/header') %>
+
+<div class="container">
+  <div class="form-container">
+    <h2 class="form-title">Ajouter votre logement</h2>
+    <p class="form-subtitle">Partagez les détails de votre bien pour le mettre en location</p>
+    
+    <form action="/ajouter-annonce" method="POST" enctype="multipart/form-data" class="annonce-form">
+      <div class="form-section">
+        <h3><i class="fas fa-home"></i> Informations générales</h3>
+        
+        <div class="form-group">
+          <label for="titre">Titre de l'annonce*</label>
+          <input type="text" id="titre" name="titre" placeholder="Ex: Appartement lumineux au centre-ville" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description*</label>
+          <textarea id="description" name="description" placeholder="Décrivez votre logement, son emplacement, ses avantages..." rows="4" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="prix">Prix par nuit (€)*</label>
+          <input type="number" id="prix" name="prix" min="1" placeholder="Ex: 75" required>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3><i class="fas fa-door-open"></i> Caractéristiques</h3>
+        
+        <div class="form-group-inline">
+          <div class="form-group">
+            <label for="chambres">Nombre de chambres*</label>
+            <input type="number" id="chambres" name="chambres" min="0" placeholder="Ex: 2" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="salleDeBains">Nombre de salles de bains*</label>
+            <input type="number" id="salleDeBains" name="salleDeBains" min="1" placeholder="Ex: 1" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="capacite">Capacité (personnes)*</label>
+            <input type="number" id="capacite" name="capacite" min="1" placeholder="Ex: 4" required>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3><i class="fas fa-concierge-bell"></i> Équipements</h3>
+        <p class="hint-text">Sélectionnez les équipements disponibles dans votre logement</p>
+        
+        <div class="equipements-grid">
+          <% equipementsDisponibles.forEach(equipement => { %>
+            <div class="equipement-item">
+              <input type="checkbox" id="eq-<%= equipement.replace(/\s+/g, '-').toLowerCase() %>" name="equipements" value="<%= equipement %>">
+              <label for="eq-<%= equipement.replace(/\s+/g, '-').toLowerCase() %>">
+                <% if (equipement === 'WiFi') { %>
+                  <i class="fas fa-wifi"></i>
+                <% } else if (equipement === 'Cuisine équipée' || equipement === 'Kitchenette') { %>
+                  <i class="fas fa-utensils"></i>
+                <% } else if (equipement === 'Machine à laver') { %>
+                  <i class="fas fa-tshirt"></i>
+                <% } else if (equipement === 'TV') { %>
+                  <i class="fas fa-tv"></i>
+                <% } else if (equipement === 'Piscine') { %>
+                  <i class="fas fa-swimming-pool"></i>
+                <% } else if (equipement === 'Parking') { %>
+                  <i class="fas fa-parking"></i>
+                <% } else if (equipement === 'Barbecue') { %>
+                  <i class="fas fa-fire"></i>
+                <% } else if (equipement === 'Climatisation') { %>
+                  <i class="fas fa-snowflake"></i>
+                <% } else if (equipement === 'Cheminée') { %>
+                  <i class="fas fa-fire-alt"></i>
+                <% } else if (equipement === 'Terrasse' || equipement === 'Balcon') { %>
+                  <i class="fas fa-umbrella-beach"></i>
+                <% } else if (equipement === 'Vue sur mer') { %>
+                  <i class="fas fa-water"></i>
+                <% } else if (equipement === 'Jardin') { %>
+                  <i class="fas fa-tree"></i>
+                <% } else if (equipement === 'Ascenseur') { %>
+                  <i class="fas fa-arrow-up"></i>
+                <% } else if (equipement === 'Jacuzzi') { %>
+                  <i class="fas fa-hot-tub"></i>
+                <% } else if (equipement === 'Sauna') { %>
+                  <i class="fas fa-temperature-high"></i>
+                <% } else if (equipement === 'Salle de sport') { %>
+                  <i class="fas fa-dumbbell"></i>
+                <% } else { %>
+                  <i class="fas fa-check-circle"></i>
+                <% } %>
+                <%= equipement %>
+              </label>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3><i class="fas fa-image"></i> Photo</h3>
+        
+        <div class="form-group">
+          <label for="image">Photo principale du logement</label>
+          <div class="image-upload-container">
+            <div class="upload-preview">
+              <img id="preview-image" src="/images/placeholder-upload.jpg" alt="Aperçu de l'image">
+            </div>
+            <div class="upload-input">
+              <input type="file" id="image" name="image" accept="image/*">
+              <p class="hint-text">Format recommandé: JPG, PNG. Taille max: 5MB</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-buttons">
+        <button type="reset" class="btn-secondary">Réinitialiser</button>
+        <button type="submit" class="btn-primary">Publier l'annonce</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Script pour prévisualiser l'image
+  document.getElementById('image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('preview-image').src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+
+<%- include('partials/footer') %>

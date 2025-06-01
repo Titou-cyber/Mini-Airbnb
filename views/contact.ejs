@@ -1,0 +1,89 @@
+<%- include('partials/header') %>
+
+<div class="container">
+  <div class="page-content">
+    <h2 class="page-title">Contactez-nous</h2>
+    
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3>Nous sommes là pour vous aider</h3>
+        <p>Vous avez des questions, des suggestions ou besoin d'assistance ? N'hésitez pas à nous contacter. Notre équipe est là pour vous répondre dans les plus brefs délais.</p>
+        
+        <div class="contact-methods">
+          <div class="contact-method">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h4>Adresse</h4>
+              <p>123 Avenue des Développeurs<br>75000 Paris, France</p>
+            </div>
+          </div>
+          
+          <div class="contact-method">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h4>Téléphone</h4>
+              <p>+33 1 23 45 67 89</p>
+            </div>
+          </div>
+          
+          <div class="contact-method">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <h4>Email</h4>
+              <p>contact@mini-airbnb.example</p>
+            </div>
+          </div>
+          
+          <div class="contact-method">
+            <i class="fas fa-clock"></i>
+            <div>
+              <h4>Horaires</h4>
+              <p>Lun-Ven: 9h-18h<br>Sam: 10h-15h</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="contact-form">
+        <h3>Envoyez-nous un message</h3>
+        <form action="/contact" method="POST">
+          <div class="form-group">
+            <label for="nom">Nom complet</label>
+            <input type="text" id="nom" name="nom" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="sujet">Sujet</label>
+            <select id="sujet" name="sujet">
+              <option value="question">Question générale</option>
+              <option value="probleme">Signaler un problème</option>
+              <option value="suggestion">Suggestion</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          
+          <button type="submit" class="btn-submit">Envoyer le message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
